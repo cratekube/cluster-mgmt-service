@@ -49,6 +49,9 @@ because RKE makes tearing down clusters easily repeatable.
     so that direct cluster tear down is reliable, 
     because RKE makes tearing down clusters easily repeatable.
     
+2.  #### Hosted cluster tear down  
+    ![Generic badge](https://img.shields.io/badge/TECHNICAL-POSTMVP-YELLOW.svg) 
+    
 ### Async for long running tasks  
 ![Generic badge](https://img.shields.io/badge/TECHNICAL-MVP-GREEN.svg)  
 As a user, I want long running tasks to be handled asynchronously, 
