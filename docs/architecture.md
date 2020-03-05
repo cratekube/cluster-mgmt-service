@@ -139,7 +139,6 @@ cloud "Storage\napi_authz" {
 </p>
 </details>
         
---- 
 ## References   
 [1]: [What is Kubernetes](https://kubernetes.io/docs/concepts/overview/components/)     
 [2]: [Overview of RKE](https://rancher.com/docs/rke/latest/en/)  
