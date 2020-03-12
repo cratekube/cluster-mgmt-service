@@ -2,7 +2,6 @@ package io.cratekube.clustermgmt.resources
 
 import io.cratekube.clustermgmt.api.ManagedResourcesApi
 import io.cratekube.clustermgmt.model.ManagedResource
-import io.cratekube.clustermgmt.resources.request.BootstrapRequest
 import org.valid4j.errors.RequireViolation
 import spock.lang.PendingFeature
 import spock.lang.Specification
@@ -10,7 +9,6 @@ import spock.lang.Subject
 
 import static org.hamcrest.Matchers.equalTo
 import static org.hamcrest.Matchers.notNullValue
-import static spock.util.matcher.HamcrestSupport.expect
 import static spock.util.matcher.HamcrestSupport.expect
 
 class ManagedResourcesResourceTest extends Specification {
