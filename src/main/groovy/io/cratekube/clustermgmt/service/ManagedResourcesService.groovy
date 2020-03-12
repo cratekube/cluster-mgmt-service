@@ -34,16 +34,16 @@ class ManagedResourcesService implements ManagedResourcesApi {
   // for async operations
   Executor executor
   /** map of envName/clusterName to their managed services. */
-  Map<String, List<ManagedResource>> managedServiceCache
+  Map<String, List<ManagedResource>> managedResourceCache
 
   @Inject
   ManagedResourcesService(FileSystemManager fs, @ManagedResourceProcessExecutor ProcessExecutor kubectl, AppConfig config,
-                          @ManagedResourceExecutor Executor executor, @ManagedResourceCache Map<String, List<ManagedResource>> managedServiceCache) {
+                          @ManagedResourceExecutor Executor executor, @ManagedResourceCache Map<String, List<ManagedResource>> managedResourceCache) {
     this.fs = require fs, notNullValue()
     this.kubectl = require kubectl, notNullValue()
     this.config = require config, notNullValue()
     this.executor = require executor, notNullValue()
-    this.managedServiceCache = require managedServiceCache, notNullValue()
+    this.managedResourceCache = require managedResourceCache, notNullValue()
   }
 
   @Override
@@ -79,6 +79,7 @@ class ManagedResourcesService implements ManagedResourcesApi {
     throws NotFoundException, InProgressException {
     require envName, notEmptyString()
     require clusterName, notEmptyString()
+    require resourceName, notEmptyString()
   }
 
   @Override

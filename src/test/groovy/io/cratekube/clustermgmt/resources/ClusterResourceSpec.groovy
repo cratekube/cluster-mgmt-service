@@ -6,19 +6,78 @@ import spock.lang.Specification
 import spock.lang.Subject
 
 class ClusterResourceSpec extends Specification {
-  @Subject ClusterResource resource
+  @Subject ClusterResource subject
   ClusterApi clusters
 
   def setup() {
     clusters = Mock(ClusterApi)
-    resource = new ClusterResource(clusters)
+    subject = new ClusterResource(clusters)
   }
 
-  def 'should require valid constructor parameters'() {
+  def 'ClusterResource requires valid parameters'() {
     when:
     new ClusterResource(null)
 
     then:
     thrown RequireViolation
+  }
+
+  def 'BootstrapCluster requires valid parameters'() {
+    when:
+    subject.bootstrapCluster(env, req)
+
+    then:
+    thrown RequireViolation
+
+    where:
+    env   | req
+    null  | null
+    ''    | null
+    'env' | null
+  }
+
+  def 'DeleteCluster requires valid parameters'() {
+    when:
+    subject.deleteCluster(env, cluster)
+
+    then:
+    thrown RequireViolation
+
+    where:
+    env   | cluster
+    null  | null
+    ''    | null
+    'env' | null
+    'env' | ''
+  }
+
+  def 'GetCluster requires valid parameters'() {
+    when:
+    subject.getCluster(env, cluster)
+
+    then:
+    thrown RequireViolation
+
+    where:
+    env   | cluster
+    null  | null
+    ''    | null
+    'env' | null
+    'env' | ''
+  }
+
+  def 'GetCustomerKubeconfig requires valid parameters'() {
+    when:
+    subject.getCustomerKubeconfig(env, cluster)
+
+    then:
+    thrown RequireViolation
+
+    where:
+    env   | cluster
+    null  | null
+    ''    | null
+    'env' | null
+    'env' | ''
   }
 }

@@ -25,12 +25,12 @@ import static org.valid4j.matchers.ArgumentMatchers.notEmptyString
 @Produces('application/json')
 @Consumes('application/json')
 @Slf4j
-class ManagedServicesResource {
-  ManagedResourcesApi services
+class ManagedResourcesResource {
+  ManagedResourcesApi resources
 
   @Inject
-  ManagedServicesResource(ManagedResourcesApi services) {
-    this.services = require services, notNullValue()
+  ManagedResourcesResource(ManagedResourcesApi resources) {
+    this.resources = require resources, notNullValue()
   }
   /**
    * Deploys a managed service.

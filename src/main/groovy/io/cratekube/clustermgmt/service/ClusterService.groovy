@@ -40,17 +40,17 @@ class ClusterService implements ClusterApi {
   // for async operations
   Executor executor
   /** map of envName/clusterName to cluster details */
-  Map<String, Cluster> bootstrapCache
+  Map<String, Cluster> clusterCache
 
   @Inject
   ClusterService(FileSystemManager fs, @ClusterProcessExecutor ProcessExecutor rke, ManagedResourcesApi services,
-                 AppConfig config, @ClusterExecutor Executor executor, @ClusterCache Map<String, Cluster> bootstrapCache) {
+                 AppConfig config, @ClusterExecutor Executor executor, @ClusterCache Map<String, Cluster> clusterCache) {
     this.fs = require fs, notNullValue()
     this.rke = require rke, notNullValue()
     this.services = require services, notNullValue()
     this.config = require config, notNullValue()
     this.executor = require executor, notNullValue()
-    this.bootstrapCache = require bootstrapCache, notNullValue()
+    this.clusterCache = require clusterCache, notNullValue()
   }
 
   @Override
@@ -63,7 +63,7 @@ class ClusterService implements ClusterApi {
     // call getCluster to look for an existing cluster status object in the in-memory LRU cache and throw InProgressException if it is still processing
     // and throw AlreadyExistsException if the desired cluster already exists
 
-    // put initial cluster status in the bootstrap queue. queueKey = "${envName}/${name}"
+    // put initial cluster status in the cluster queue. queueKey = "${envName}/${name}"
 
     // background execution through executor
     // generate list of nodes for the rke-cluster-config template
@@ -89,7 +89,7 @@ class ClusterService implements ClusterApi {
     // config file should be saved
     // /environment/{envName}/cluster/{clustName}/cluster.yml
 
-    // run `rke delete` using the  config file in the cluster clustName directory and remove item from bootstrap queue if it exists
+    // run `rke delete` using the  config file in the cluster clustName directory and remove item from cluster queue if it exists
   }
 
   @Override
