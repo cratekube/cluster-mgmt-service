@@ -1,9 +1,17 @@
 package io.cratekube.clustermgmt.resources
 
 import io.cratekube.clustermgmt.api.ManagedResourcesApi
+import io.cratekube.clustermgmt.model.ManagedResource
+import io.cratekube.clustermgmt.resources.request.BootstrapRequest
 import org.valid4j.errors.RequireViolation
+import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Subject
+
+import static org.hamcrest.Matchers.equalTo
+import static org.hamcrest.Matchers.notNullValue
+import static spock.util.matcher.HamcrestSupport.expect
+import static spock.util.matcher.HamcrestSupport.expect
 
 class ManagedResourcesResourceTest extends Specification {
   @Subject ManagedResourcesResource subject
@@ -38,6 +46,16 @@ class ManagedResourcesResourceTest extends Specification {
     'env' | 'cluster' | null
   }
 
+  @PendingFeature
+  def 'CreateManagedResource returns a valid result'() {
+    when:
+    def result = subject.createManagedResource('test-env', 'test-cluster', new ManagedResource(name:'test-resource', config: 'test-config'))
+
+    then:
+    expect result, notNullValue()
+    expect result.status, equalTo(201)
+  }
+
   def 'DeleteManagedResource requires valid params'() {
     when:
     subject.deleteManagedResource(env, cluster, resource)
@@ -55,6 +73,16 @@ class ManagedResourcesResourceTest extends Specification {
     'env' | 'cluster' | ''
   }
 
+  @PendingFeature
+  def 'DeleteManagedResource returns a valid result'() {
+    when:
+    def result = subject.deleteManagedResource('test-env', 'test-cluster', 'test-resource')
+
+    then:
+    expect result, notNullValue()
+    expect result.status, equalTo(202)
+  }
+
   def 'GetManagedResource requires valid params'() {
     when:
     subject.getManagedResource(env, cluster, resource)
@@ -70,6 +98,15 @@ class ManagedResourcesResourceTest extends Specification {
     'env' | ''        | null
     'env' | 'cluster' | null
     'env' | 'cluster' | ''
+  }
+
+  @PendingFeature
+  def 'GetManagedResource returns a valid result'() {
+    when:
+    def result = subject.getManagedResource('test-env', 'test-cluster', 'test-resource')
+
+    then:
+    expect result, notNullValue()
   }
 
   def 'GetManagedResources requires valid params'() {

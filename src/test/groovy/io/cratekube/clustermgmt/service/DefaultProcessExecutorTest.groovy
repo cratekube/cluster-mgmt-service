@@ -6,7 +6,10 @@ import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
-class ProcessExecutorTest extends Specification {
+import static org.hamcrest.Matchers.equalTo
+import static spock.util.matcher.HamcrestSupport.expect
+
+class DefaultProcessExecutorTest extends Specification {
   @Subject ProcessExecutor subject
   File f = new File('/')
 
@@ -27,5 +30,14 @@ class ProcessExecutorTest extends Specification {
     null   | null
     this.f | null
     this.f | ['', ' ', null]
+  }
+
+  def 'Exec successfully executes a command'() {
+    when:
+    def result = subject.exec(f, '-h')
+    result.waitForProcessOutput()
+
+    then:
+    expect result.exitValue(), equalTo(0)
   }
 }

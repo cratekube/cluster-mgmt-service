@@ -9,10 +9,11 @@ import static org.hamcrest.Matchers.notNullValue
 import static spock.util.matcher.HamcrestSupport.expect
 
 class ManagedResourcesResourceIntegrationTest extends BaseIntegrationSpec {
+  String baseRequestPath = '/environment/test-env/cluster/test-cluster/resource'
 
   def 'should get list response when executing GET'() {
     when:
-    def result = baseRequest('/environment/test-env/cluster/test-cluster/resource').get(new GenericType<List<ManagedResource>>() {})
+    def result = baseRequest().get(new GenericType<List<ManagedResource>>() {})
 
     then:
     expect result, notNullValue()

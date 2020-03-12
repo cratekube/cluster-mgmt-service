@@ -6,10 +6,16 @@ import io.cratekube.clustermgmt.api.ProcessExecutor
 import io.cratekube.clustermgmt.model.ManagedResource
 import org.apache.commons.vfs2.FileSystemManager
 import org.valid4j.errors.RequireViolation
+import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.util.concurrent.Executor
+
+import static org.hamcrest.Matchers.empty
+import static org.hamcrest.Matchers.not
+import static spock.util.matcher.HamcrestSupport.expect
+import static org.hamcrest.Matchers.notNullValue
 
 class ManagedResourcesServiceTest extends Specification {
   @Subject ManagedResourcesService subject
@@ -108,6 +114,15 @@ class ManagedResourcesServiceTest extends Specification {
     'env' | 'cluster' | ''
   }
 
+  @PendingFeature
+  def 'GetManagedResource returns a managed resource'() {
+    when:
+    def result = subject.getManagedResource('test-env', 'test-cluster', 'test-resource')
+
+    then:
+    expect result, notNullValue()
+  }
+
   def 'GetManagedResources requires valid params'() {
     when:
     subject.getManagedResources(env, cluster)
@@ -121,5 +136,14 @@ class ManagedResourcesServiceTest extends Specification {
     ''    | null
     'env' | null
     'env' | ''
+  }
+
+  @PendingFeature
+  def 'GetManagedResources returns a clusters managed resources'() {
+    when:
+    def result = subject.getManagedResources('test-env', 'test-cluster')
+
+    then:
+    expect result, not(empty())
   }
 }

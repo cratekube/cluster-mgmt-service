@@ -8,11 +8,12 @@ import static org.hamcrest.Matchers.notNullValue
 import static spock.util.matcher.HamcrestSupport.expect
 
 class ClusterResourceIntegrationTest extends BaseIntegrationSpec {
+  String baseRequestPath = '/environment/test-env/cluster/test-cluster'
 
   @PendingFeature
   def 'should get response when executing GET'() {
     when:
-    def result = baseRequest('/environment/test-env/cluster/test-cluster').get(Cluster)
+    def result = baseRequest().get(Cluster)
 
     then:
     expect result, notNullValue()

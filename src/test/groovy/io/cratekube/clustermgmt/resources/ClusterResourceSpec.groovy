@@ -1,9 +1,15 @@
 package io.cratekube.clustermgmt.resources
 
 import io.cratekube.clustermgmt.api.ClusterApi
+import io.cratekube.clustermgmt.resources.request.BootstrapRequest
 import org.valid4j.errors.RequireViolation
+import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Subject
+
+import static org.hamcrest.Matchers.equalTo
+import static spock.util.matcher.HamcrestSupport.expect
+import static org.hamcrest.Matchers.notNullValue
 
 class ClusterResourceSpec extends Specification {
   @Subject ClusterResource subject
@@ -36,6 +42,16 @@ class ClusterResourceSpec extends Specification {
     'env' | null
   }
 
+  @PendingFeature
+  def 'BootstrapCluster returns a valid result'() {
+    when:
+    def result = subject.bootstrapCluster('test-env', new BootstrapRequest('test-cluster', ['test.io', 'test-2.io']))
+
+    then:
+    expect result, notNullValue()
+    expect result.status, equalTo(201)
+  }
+
   def 'DeleteCluster requires valid parameters'() {
     when:
     subject.deleteCluster(env, cluster)
@@ -49,6 +65,16 @@ class ClusterResourceSpec extends Specification {
     ''    | null
     'env' | null
     'env' | ''
+  }
+
+  @PendingFeature
+  def 'DeleteCluster returns a valid result'() {
+    when:
+    def result = subject.deleteCluster('test-env', 'test-cluster')
+
+    then:
+    expect result, notNullValue()
+    expect result.status, equalTo(202)
   }
 
   def 'GetCluster requires valid parameters'() {
@@ -79,5 +105,14 @@ class ClusterResourceSpec extends Specification {
     ''    | null
     'env' | null
     'env' | ''
+  }
+
+  @PendingFeature
+  def 'GetCustomerKubeconfig returns a valid result'() {
+    when:
+    def result = subject.getCustomerKubeconfig('test-env', 'test-cluster')
+
+    then:
+    expect result, notNullValue()
   }
 }

@@ -7,10 +7,14 @@ import io.cratekube.clustermgmt.api.ProcessExecutor
 import io.cratekube.clustermgmt.model.Cluster
 import org.apache.commons.vfs2.FileSystemManager
 import org.valid4j.errors.RequireViolation
+import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.util.concurrent.Executor
+
+import static spock.util.matcher.HamcrestSupport.expect
+import static org.hamcrest.Matchers.notNullValue
 
 class ClusterServiceTest extends Specification {
   @Subject ClusterService subject
@@ -95,6 +99,15 @@ class ClusterServiceTest extends Specification {
     'env' | ''
   }
 
+  @PendingFeature
+  def 'GetCluster returns a cluster'() {
+    when:
+    def result = subject.getCluster('test-env', 'test-cluster')
+
+    then:
+    expect result, notNullValue()
+  }
+
   def 'GetCustomerKubeconfig requires valid params'() {
     when:
     subject.getCustomerKubeconfig(env, cluster)
@@ -108,5 +121,14 @@ class ClusterServiceTest extends Specification {
     ''    | null
     'env' | null
     'env' | ''
+  }
+
+  @PendingFeature
+  def 'GetCustomerKubeconfig returns a customer kubeconfig'() {
+    when:
+    def result = subject.getCustomerKubeconfig('test-env', 'test-cluster')
+
+    then:
+    expect result, notNullValue()
   }
 }
