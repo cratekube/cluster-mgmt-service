@@ -22,9 +22,9 @@ class ManagedResourcesResourceTest extends Specification {
     thrown RequireViolation
   }
 
-  def 'CreateManagedService requires valid params'() {
+  def 'CreateManagedResource requires valid params'() {
     when:
-    subject.createManagedService(env, cluster, req)
+    subject.createManagedResource(env, cluster, req)
 
     then:
     thrown RequireViolation
@@ -38,15 +38,15 @@ class ManagedResourcesResourceTest extends Specification {
     'env' | 'cluster' | null
   }
 
-  def 'DeleteManagedService requires valid params'() {
+  def 'DeleteManagedResource requires valid params'() {
     when:
-    subject.deleteManagedService(env, cluster, service)
+    subject.deleteManagedResource(env, cluster, resource)
 
     then:
     thrown RequireViolation
 
     where:
-    env   | cluster   | service
+    env   | cluster   | resource
     null  | null      | null
     ''    | null      | null
     'env' | null      | null
@@ -55,15 +55,15 @@ class ManagedResourcesResourceTest extends Specification {
     'env' | 'cluster' | ''
   }
 
-  def 'GetManagedService requires valid params'() {
+  def 'GetManagedResource requires valid params'() {
     when:
-    subject.getManagedService(env, cluster, service)
+    subject.getManagedResource(env, cluster, resource)
 
     then:
     thrown RequireViolation
 
     where:
-    env   | cluster   | service
+    env   | cluster   | resource
     null  | null      | null
     ''    | null      | null
     'env' | null      | null
@@ -72,9 +72,9 @@ class ManagedResourcesResourceTest extends Specification {
     'env' | 'cluster' | ''
   }
 
-  def 'GetManagedServices requires valid params'() {
+  def 'GetManagedResources requires valid params'() {
     when:
-    subject.getManagedServices(env, cluster)
+    subject.getManagedResources(env, cluster)
 
     then:
     thrown RequireViolation
