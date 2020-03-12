@@ -1,4 +1,4 @@
-package io.cratekube.example
+package io.cratekube.clustermgmt
 
 import ru.vyarus.dropwizard.guice.test.spock.UseDropwizardApp
 import spock.lang.Specification
@@ -8,7 +8,7 @@ import javax.ws.rs.client.Client
 import javax.ws.rs.client.Invocation
 
 /**
- * Base class for all integration specs.  This class provides a client for interacting with the
+ * Base class for all integration specs. This class provides a client for interacting with the
  * Dropwizard application's API.
  */
 @UseDropwizardApp(value = App, hooks = IntegrationSpecHook, config = 'src/test/resources/testapp.yml')

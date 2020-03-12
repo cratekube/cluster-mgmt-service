@@ -1,6 +1,6 @@
-package io.cratekube.example
+package io.cratekube.clustermgmt
 
-import io.cratekube.example.modules.ProductionModule
+import io.cratekube.clustermgmt.modules.ProductionModule
 import io.dropwizard.Application
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor
 import io.dropwizard.configuration.SubstitutingSourceProvider
@@ -38,7 +38,7 @@ class App extends Application<AppConfig> {
 
       // configures the application to use Guice for dependency injection
       addBundle GuiceBundle.builder()
-                           .enableAutoConfig('io.cratekube.example')
+                           .enableAutoConfig('io.cratekube.clustermgmt')
                            .injectorFactory(new BindingsOverrideInjectorFactory())
                            .modules(new ProductionModule())
                            .build()

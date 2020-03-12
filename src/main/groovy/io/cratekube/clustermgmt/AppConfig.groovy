@@ -1,10 +1,12 @@
-package io.cratekube.example
+package io.cratekube.clustermgmt
 
+import io.cratekube.clustermgmt.config.RkeConfig
 import io.dropwizard.Configuration
 import io.dropwizard.client.JerseyClientConfiguration
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration
 
 import javax.validation.Valid
+import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 /**
@@ -16,4 +18,11 @@ class AppConfig extends Configuration {
   @Valid
   @NotNull
   SwaggerBundleConfiguration swagger
+
+  @Valid
+  @NotNull
+  RkeConfig rke
+
+  @NotEmpty
+  String configLocation
 }

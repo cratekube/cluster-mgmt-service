@@ -1,6 +1,6 @@
-package io.cratekube.example
+package io.cratekube.clustermgmt
 
-import io.cratekube.example.modules.IntegrationSpecModule
+import io.cratekube.clustermgmt.modules.IntegrationSpecModule
 import ru.vyarus.dropwizard.guice.GuiceBundle
 import ru.vyarus.dropwizard.guice.hook.GuiceyConfigurationHook
 
