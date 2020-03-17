@@ -1,6 +1,6 @@
-package io.cratekube.clustermgmt.service
+package io.cratekube.clustermgmt.api
 
-import io.cratekube.clustermgmt.api.ProcessExecutor
+import io.cratekube.clustermgmt.service.RkeCommand
 import org.valid4j.errors.RequireViolation
 import spock.lang.Specification
 import spock.lang.Subject

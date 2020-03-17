@@ -3,7 +3,7 @@ package io.cratekube.clustermgmt
 import spock.lang.Specification
 import spock.lang.Subject
 
-class AppSpec extends Specification {
+class AppTest extends Specification {
   @Subject App app
 
   def setup() {

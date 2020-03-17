@@ -47,7 +47,8 @@ class ManagedResourcesService implements ManagedResourcesApi {
   }
 
   @Override
-  void bootstrapManagedResources(String envName, String clusterName) throws NotFoundException {
+  void bootstrapManagedResources(String envName, String clusterName)
+    throws NotFoundException, AlreadyExistsException {
     require envName, notEmptyString()
     require clusterName, notEmptyString()
 

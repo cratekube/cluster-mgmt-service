@@ -21,6 +21,7 @@ import java.util.concurrent.Executor
 import static org.hamcrest.Matchers.allOf
 import static org.hamcrest.Matchers.empty
 import static org.hamcrest.Matchers.not
+import static org.hamcrest.core.Every.everyItem
 import static org.hamcrest.core.IsNull.notNullValue
 import static org.valid4j.Assertive.require
 import static org.valid4j.matchers.ArgumentMatchers.notEmptyString
@@ -58,7 +59,7 @@ class ClusterService implements ClusterApi {
     throws AlreadyExistsException, InProgressException {
     require envName, notEmptyString()
     require clusterName, notEmptyString()
-    require hostnames, allOf(notNullValue(), not(empty()))
+    require hostnames, allOf(notNullValue(), not(empty()), everyItem(notEmptyString()))
 
     // call getCluster to look for an existing cluster status object in the in-memory LRU cache and throw InProgressException if it is still processing
     // and throw AlreadyExistsException if the desired cluster already exists
@@ -85,7 +86,7 @@ class ClusterService implements ClusterApi {
     require clusterName, notEmptyString()
 
     // call getCluster to look for an existing cluster object in the in-memory LRU cache and throw InProgressException if it is still processing
-    // and throw NotFoundException if the desired cluster already exists
+    // and throw NotFoundException if the desired cluster does not exist
     // config file should be saved
     // /environment/{envName}/cluster/{clustName}/cluster.yml
 
