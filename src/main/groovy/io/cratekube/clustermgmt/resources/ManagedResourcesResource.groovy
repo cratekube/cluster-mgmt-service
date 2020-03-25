@@ -2,6 +2,7 @@ package io.cratekube.clustermgmt.resources
 
 import groovy.util.logging.Slf4j
 import io.cratekube.clustermgmt.api.ManagedResourcesApi
+import io.cratekube.clustermgmt.api.exception.NotFoundException
 import io.cratekube.clustermgmt.dropwizard.auth.User
 import io.cratekube.clustermgmt.model.ManagedResource
 import io.dropwizard.auth.Auth
@@ -20,6 +21,8 @@ import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
 import javax.ws.rs.core.Response
 
+import static javax.ws.rs.core.Response.accepted
+import static javax.ws.rs.core.Response.created
 import static org.hamcrest.core.IsNull.notNullValue
 import static org.valid4j.Assertive.require
 import static org.valid4j.matchers.ArgumentMatchers.notEmptyString
@@ -45,7 +48,7 @@ class ManagedResourcesResource {
    *
    * @param envName {@code non-empty} environment name
    * @param clusterName {@code non-empty} cluster name
-   * @param req {@code non-null} managed resource request for the cluster
+   * @param managedResource {@code non-null} managed resource request for the cluster
    * @return 201 response and set location header when a cluster creation is initiated, a 404 if the cluster does not exist or a 409 response if the managed resource exists already or creation is in progress
    * @throws io.cratekube.clustermgmt.api.exception.InProgressException if the managed resource creation is in progress
    * @throws io.cratekube.clustermgmt.api.exception.AlreadyExistsException if the managed resource already exists
@@ -56,16 +59,18 @@ class ManagedResourcesResource {
   Response createManagedResource(
     @PathParam('envName') String envName,
     @PathParam('clusterName') String clusterName,
-    @Valid ManagedResource req,
+    @Valid ManagedResource managedResource,
     @ApiParam(hidden = true) @Auth User user
   ) {
     require envName, notEmptyString()
     require clusterName, notEmptyString()
-    require req, notNullValue()
+    require managedResource, notNullValue()
     require user, notNullValue()
 
-    log.debug 'action [create-managed-resource]'
-    return null
+    log.debug 'action [create-managed-resource]. ManagedResource=[{}]', managedResource
+
+    resources.deployManagedResource(envName, clusterName, managedResource)
+    return created("/environment/${envName}/cluster/${clusterName}/resource/${managedResource.name}".toURI()).build()
   }
 
   /**
@@ -94,7 +99,9 @@ class ManagedResourcesResource {
     require user, notNullValue()
 
     log.debug 'action [delete-managed-resource]'
-    return null
+
+    resources.removeManagedResource(envName, clusterName, resourceName)
+    return accepted().location("/environment/${envName}/cluster/${clusterName}/resource/${resourceName}".toURI()).build()
   }
 
   /**
@@ -119,7 +126,12 @@ class ManagedResourcesResource {
     require resourceName, notEmptyString()
 
     log.debug 'action [get-managed-resource]'
-    return null
+
+    def managedResource = resources.getManagedResource(envName, clusterName, resourceName)
+    if (managedResource) {
+      return managedResource
+    }
+    throw new NotFoundException("ManagedResource [${resourceName}] not found.")
   }
 
   /**
@@ -140,7 +152,8 @@ class ManagedResourcesResource {
     require clusterName, notEmptyString()
 
     log.debug 'action [get-managed-resources]'
-    return []
+
+    return resources.getManagedResources(envName, clusterName)
   }
 
 }
