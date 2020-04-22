@@ -26,3 +26,5 @@
 !*.md
 !codenarc.groovy
 !swagger-config.json
+
+.DS_Store
