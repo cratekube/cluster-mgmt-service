@@ -42,6 +42,11 @@ spec:
               value: /app/kube/cratekube_rsa
             - name: RKE_NODE_USER
               value: ec2-user
+            - name: ADMIN_APIKEY
+                valueFrom:
+                  secretKeyRef:
+                    name: cratekube-api-secret
+                    key: admin-api-key
       volumes:
         - name: rke-ssh-volume
           hostPath:
