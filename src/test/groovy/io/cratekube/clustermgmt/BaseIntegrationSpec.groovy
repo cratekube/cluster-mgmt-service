@@ -15,7 +15,7 @@ import javax.ws.rs.client.Invocation
  * Base class for all integration specs. This class provides a client for interacting with the
  * Dropwizard application's API.
  */
-@UseDropwizardApp(value = App, hooks = IntegrationSpecHook, config = 'app.yml')
+@UseDropwizardApp(value = App, hooks = IntegrationSpecHook, config = 'src/test/resources/testapp.yml')
 abstract class BaseIntegrationSpec extends Specification {
   MockUtil mockUtil = new MockUtil()
   @Inject Client client
